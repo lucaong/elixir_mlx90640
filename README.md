@@ -1,4 +1,4 @@
-# Elixir Mlx90640
+# Elixir MLX90640
 
 An Elixir library to interface with the MLX90640 Far Infrared Thermal Sensor Array.
 
@@ -15,7 +15,16 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/elixir_mlx90640](https://hexdocs.pm/elixir_mlx90640).
+## Usage
 
+```elixir
+receiver = self() # a process that will receive the data frames
+Mlx90640.start_link(receiver, [ frame_rate: 2 ])
+
+# On each frame, the receiver will receive messages like:
+#
+#   %Mlx90640.Frame{ data: [ [ 23.83, 24.12, ... ], [ ... ] ] }
+#
+# Where data is a list of 24 rows, and rows are list of 32 temperature
+# measurements
+```
