@@ -10,6 +10,7 @@ defmodule Mlx90640.MixProject do
       compilers: [:elixir_make] ++ Mix.compilers,
       aliases: aliases(),
       package: package(),
+      source_url: "https://github.com/lucaong/elixir_mlx90640",
       deps: deps()
     ]
   end
