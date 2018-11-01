@@ -11,8 +11,8 @@
 
 #define MLX_I2C_ADDR 0x33
 
-// Despite the framerate being ostensibly FPS hz The frame is often not ready in
-// time This offset is added to the frame time microseconds to account for this.
+// Despite the framerate being set, the frame is often not ready in time. This
+// offset is therefore added to the frame time to account for that.
 #define OFFSET_MICROS 850
 
 #define PIXELS 768
@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
   } else if (fps == 64) {
     MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b111);
   } else {
-    printf("Unsupported framerate: %d", fps);
+    err(EXIT_FAILURE, "%s: %d", "Unsupported framerate", fps);
     return 1;
   }
   
