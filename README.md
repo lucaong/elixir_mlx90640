@@ -28,3 +28,9 @@ Mlx90640.start_link(receiver, [ frame_rate: 2 ])
 # Where data is a list of 24 rows, and rows are list of 32 temperature
 # measurements
 ```
+
+## Acknowledgements
+
+This project contains low-level code derived from the device library provided by
+Melexis at https://github.com/melexis/mlx90640-library , as well as the generic
+Linux port provided by Pimoroni at https://github.com/pimoroni/mlx90640-library
