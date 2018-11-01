@@ -23,7 +23,13 @@ Mlx90640.start_link(receiver, [ frame_rate: 2 ])
 
 # On each frame, the receiver will receive messages like:
 #
-#   %Mlx90640.Frame{ data: [ [ 23.83, 24.12, ... ], [ ... ] ] }
+#   %Mlx90640.Frame{ data:
+#     [
+#       [ 23.83, 24.12, 20.69, ... ],
+#       [ 20.36, 20.74, 20.71, ... ],
+#       ...
+#     ]
+#   }
 #
 # Where data is a list of 24 rows, and rows are lists of 32 temperature
 # measurements

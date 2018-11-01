@@ -30,8 +30,8 @@ defmodule Mlx90640 do
 
   The `receiver` process will receive, for each frame captured by the sensor, a
   message like `%Mlx90640.Frame{ data: data }`, where `data` is a list of rows,
-  and each row is a list of pixel temperature measurements, expressed as float
-  numbers indicating the temperature in Celsius degrees.
+  and each row is a list of pixel temperature measurements, expressed as
+  floating point numbers indicating the temperature in degrees Celsius.
 
   Under normal conditions, there should be 24 rows of 32 pixels each, but in
   case of corrupted data frames there might be less.
