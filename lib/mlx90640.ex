@@ -78,6 +78,10 @@ defmodule Mlx90640 do
     { :noreply, state }
   end
 
+  def handle_info({port, {:exit_status, exit_status}}, state = %State{ port: port }) do
+    { :stop, exit_status, state }
+  end
+
   def handle_cast(:stop, state) do
     { :stop, :normal, state }
   end
