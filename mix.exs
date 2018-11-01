@@ -11,7 +11,10 @@ defmodule Mlx90640.MixProject do
       aliases: aliases(),
       package: package(),
       source_url: "https://github.com/lucaong/elixir_mlx90640",
-      deps: deps()
+      deps: deps(),
+      docs: [
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -30,7 +33,7 @@ defmodule Mlx90640.MixProject do
   defp deps do
     [
       {:elixir_make, "~> 0.4", runtime: false},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end
 
