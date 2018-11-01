@@ -13,6 +13,7 @@ defmodule Mlx90640.MixProject do
       source_url: "https://github.com/lucaong/elixir_mlx90640",
       deps: deps(),
       docs: [
+        main: "Mlx90640",
         extras: ["README.md"]
       ]
     ]
