@@ -19,7 +19,7 @@ defmodule Mlx90640 do
   @type frame_rate :: 1 | 2 | 4 | 8 | 16 | 32 | 64
 
   @doc """
-  Start and link the `Mlx90640` GenServer.
+  Starts and links the `Mlx90640` GenServer.
 
   `receiver` is a process that will receive messages on each frame captured by
   the sensor.
