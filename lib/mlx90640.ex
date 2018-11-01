@@ -1,4 +1,8 @@
 defmodule Mlx90640 do
+  @moduledoc """
+  `elixir_mlx90640` provides a high level abstraction to interface with the
+  MLX90640 Far Infrared Thermal Sensor Array on Linux platforms.
+  """
   use Bitwise
   use GenServer
 
@@ -12,8 +16,30 @@ defmodule Mlx90640 do
     defstruct data: []
   end
 
+  @type frame_rate :: 1 | 2 | 4 | 8 | 16 | 32 | 64
+
+  @doc """
+  Start and link the Mlx90640 GenServer.
+
+  `receiver` is a process that will receive messages on each frame captured by
+  the sensor.
+
+  `frame_rate` is the (approximate) number of frames per second that the sensor
+  will capture. Valid values are 1, 2, 4, 8, 16, 32, and 64. The default is 2.
+  Higher values might require a faster I2C baud rate to be configured in Linux.
+
+  The `receiver` process will receive, for each frame captured by the sensor, a
+  message like `%Mlx90640.Frame{ data: data }`, where `data` is a list of rows,
+  and each row is a list of pixel temperature measurements, expressed as float
+  numbers indicating the temperature in Celsius degrees.
+
+  Under normal conditions, there should be 24 rows of 32 pixels each, but in
+  case of corrupted data frames there might be less.
+  """
+  @spec start_link(pid, [ frame_rate: frame_rate ], [ term ]) :: GenServer.on_start()
   def start_link(receiver, mlx_opts \\ [], opts \\ []) do
     frame_rate = Keyword.get(mlx_opts, :frame_rate, 2)
+
     if Enum.member?([1, 2, 4, 8, 16, 32, 64], frame_rate) do
       arg = %{ receiver: receiver, frame_rate: frame_rate }
       GenServer.start_link(__MODULE__, arg, opts)
@@ -22,6 +48,10 @@ defmodule Mlx90640 do
     end
   end
 
+  @doc """
+  Gracefully stops the Mlx90640 GenServer.
+  """
+  @spec stop(GenServer.server()) :: :ok
   def stop(pid) do
     GenServer.cast(pid, :stop)
   end
@@ -51,6 +81,8 @@ defmodule Mlx90640 do
   def handle_cast(:stop, state) do
     { :stop, :normal, state }
   end
+
+  # Private helper functions
 
   defp decode(data, decoded \\ []) do
     case data do
