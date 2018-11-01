@@ -15,7 +15,8 @@ defmodule Mlx90640 do
   def start_link(receiver, mlx_opts \\ [], opts \\ []) do
     frame_rate = Keyword.get(mlx_opts, :frame_rate, 2)
     if Enum.member?([1, 2, 4, 8, 16, 32, 64], frame_rate) do
-      GenServer.start_link(__MODULE__, [receiver, frame_rate], opts)
+      arg = %{ receiver: receiver, frame_rate: frame_rate }
+      GenServer.start_link(__MODULE__, arg, opts)
     else
       { :error, "frame rate #{frame_rate} not supported" }
     end
@@ -25,8 +26,11 @@ defmodule Mlx90640 do
     GenServer.cast(pid, :stop)
   end
 
-  def init([receiver, frame_rate]) do
-    executable = :code.priv_dir(:elixir_mlx90640) ++ '/mlx90640'
+  # GenServer callbacks
+
+  def init(%{ receiver: receiver, frame_rate: frame_rate }) do
+    executable_dir = Application.get_env(:elixir_mlx90640, :executable_dir, :code.priv_dir(:elixir_mlx90640))
+    executable = executable_dir ++ '/mlx90640'
 
     port = Port.open({:spawn_executable, executable}, [
       {:args, ["#{frame_rate}"]},
