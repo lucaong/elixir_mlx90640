@@ -60,9 +60,8 @@ defmodule Mlx90640 do
 
   def init(%{ receiver: receiver, frame_rate: frame_rate }) do
     executable_dir = Application.get_env(:elixir_mlx90640, :executable_dir, :code.priv_dir(:elixir_mlx90640))
-    executable = executable_dir ++ '/mlx90640'
 
-    port = Port.open({:spawn_executable, executable}, [
+    port = Port.open({:spawn_executable, executable_dir ++ '/mlx90640'}, [
       {:args, ["#{frame_rate}"]},
       {:packet, 2},
       :use_stdio,
