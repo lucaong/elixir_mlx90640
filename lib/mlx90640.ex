@@ -19,7 +19,7 @@ defmodule Mlx90640 do
   @type frame_rate :: 1 | 2 | 4 | 8 | 16 | 32 | 64
 
   @doc """
-  Start and link the Mlx90640 GenServer.
+  Start and link the `Mlx90640` GenServer.
 
   `receiver` is a process that will receive messages on each frame captured by
   the sensor.
@@ -49,7 +49,7 @@ defmodule Mlx90640 do
   end
 
   @doc """
-  Gracefully stops the Mlx90640 GenServer.
+  Gracefully stops the `Mlx90640` GenServer.
   """
   @spec stop(GenServer.server()) :: :ok
   def stop(pid) do

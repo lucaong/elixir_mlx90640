@@ -25,9 +25,11 @@ Mlx90640.start_link(receiver, [ frame_rate: 2 ])
 #
 #   %Mlx90640.Frame{ data: [ [ 23.83, 24.12, ... ], [ ... ] ] }
 #
-# Where data is a list of 24 rows, and rows are list of 32 temperature
+# Where data is a list of 24 rows, and rows are lists of 32 temperature
 # measurements
 ```
+
+For more information, read the [API documentation](https://hexdocs.pm/elixir_mlx90640/api-reference.html).
 
 ## Acknowledgements
 
