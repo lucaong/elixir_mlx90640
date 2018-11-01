@@ -63,6 +63,6 @@ defmodule Mlx90640 do
   defp decode_bytes(a, b) do
     sign = if bsr(band(b, 0b10000000), 7) == 1, do: -1, else: 1
     fractional = band(b, 0b01111111)
-    (a * sign) + (fractional / 100.0)
+    (a * sign) + (sign * fractional / 100.0)
   end
 end
