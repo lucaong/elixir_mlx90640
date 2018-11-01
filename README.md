@@ -29,7 +29,7 @@ Mlx90640.start_link(receiver, [ frame_rate: 2 ])
 # measurements
 ```
 
-For more information, read the [API documentation](https://hexdocs.pm/elixir_mlx90640/api-reference.html).
+For more information, read the [API documentation](https://hexdocs.pm/elixir_mlx90640/Mlx90640.html).
 
 ## Acknowledgements
 
