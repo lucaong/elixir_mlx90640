@@ -21,6 +21,13 @@ endif
 DEFAULT_TARGETS ?= priv priv/mlx90640
 
 CXX ?= $(CROSSCOMPILE)-g++
+AR ?= $(CROSSCOMPILE)-ar
+
+ifeq($(CROSSCOMPILE),)
+	RANLIB = ranlib
+else
+  RANLIB = $(CROSSCOMPILE)-ranlib
+endif
 
 .PHONY: all clean
 
@@ -28,11 +35,15 @@ all: $(DEFAULT_TARGETS)
 
 priv/mlx90640 : CXXFLAGS+=-I. -std=c++11
 
-priv/mlx90640: src/main.o src/libMLX90640_API.so
+priv/mlx90640: src/main.o src/libMLX90640_API.a
 	$(CXX) $^ -L./src -o $@
 
 src/libMLX90640_API.so: src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o
 	$(CXX) -fPIC -shared $^ -o $@
+
+src/libMLX90640_API.a: src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o
+	$(AR) rcs $@ $^
+	$(RANLIB) $@
 
 src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o : CXXFLAGS+=-fPIC -I. -shared
 
@@ -45,3 +56,4 @@ clean:
 	rm -f priv/mlx90640
 	rm -f src/*.o
 	rm -f src/*.so
+	rm -f src/*.a
