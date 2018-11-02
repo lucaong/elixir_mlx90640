@@ -1,11 +1,13 @@
 # Elixir MLX90640
 
+[![Build Status](https://travis-ci.org/lucaong/elixir_mlx90640.svg?branch=master)](https://travis-ci.org/lucaong/elixir_mlx90640)
+
 An Elixir library to interface with the MLX90640 Far Infrared Thermal Sensor Array.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `elixir_mlx90640` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `elixir_mlx90640` to your list of
+dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -14,6 +16,9 @@ def deps do
   ]
 end
 ```
+
+The I2C driver needs to be installed for this library to compile (e.g.
+`libi2c-dev` on Debian).
 
 ## Usage
 
@@ -35,10 +40,10 @@ Mlx90640.start_link(receiver, [ frame_rate: 2 ])
 # measurements
 ```
 
-For more information, read the [API documentation](https://hexdocs.pm/elixir_mlx90640/Mlx90640.html).
+For more information, read the [API documentation](https://hexdocs.pm/elixir_mlx90640).
 
 ## Acknowledgements
 
-This project contains low-level code derived from the device library provided by
-Melexis at https://github.com/melexis/mlx90640-library , as well as the generic
-Linux port provided by Pimoroni at https://github.com/pimoroni/mlx90640-library
+This project contains low-level code derived from the [device library provided
+by Melexis](https://github.com/melexis/mlx90640-library), as well as the generic
+[Linux port by Pimoroni](https://github.com/pimoroni/mlx90640-library)
