@@ -20,7 +20,12 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
-#include <linux/i2c-dev.h>
+#include "linux/i2c-dev.h"
+#include <err.h>
+#include <stdlib.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 int i2c_fd = 0;
 const char *i2c_device = "/dev/i2c-1";
