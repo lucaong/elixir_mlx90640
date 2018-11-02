@@ -23,10 +23,10 @@ DEFAULT_TARGETS ?= priv priv/mlx90640
 CXX ?= $(CROSSCOMPILE)-g++
 AR ?= $(CROSSCOMPILE)-ar
 
-ifeq($(CROSSCOMPILE),)
+ifeq ($(CROSSCOMPILE),)
 	RANLIB = ranlib
 else
-  RANLIB = $(CROSSCOMPILE)-ranlib
+	RANLIB = $(CROSSCOMPILE)-ranlib
 endif
 
 .PHONY: all clean
