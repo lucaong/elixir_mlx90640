@@ -4,7 +4,7 @@ defmodule Mlx90640.MixProject do
   def project do
     [
       app: :elixir_mlx90640,
-      version: "0.1.3",
+      version: "0.1.4",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       compilers: [:elixir_make] ++ Mix.compilers,
