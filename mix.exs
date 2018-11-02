@@ -3,7 +3,7 @@ defmodule Mlx90640.MixProject do
 
   def project do
     [
-      app: :elixir_mlx90640,
+      app: :mlx90640,
       version: "0.1.5",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
@@ -40,6 +40,7 @@ defmodule Mlx90640.MixProject do
 
   defp package do
     [
+      name: "elixir_mlx90640",
       description: "An Elixir library to interface with the MLX90640 Far Infrared Thermal Sensor Array",
       files: ["lib", "LICENSE", "mix.exs", "README.md", "src/*.cpp", "src/*.h", "src/linux/i2c-dev.h", "Makefile"],
       maintainers: ["Luca Ongaro"],
