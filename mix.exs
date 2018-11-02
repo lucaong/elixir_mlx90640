@@ -41,7 +41,7 @@ defmodule Mlx90640.MixProject do
   defp package do
     [
       description: "An Elixir library to interface with the MLX90640 Far Infrared Thermal Sensor Array",
-      files: ["lib", "LICENSE", "mix.exs", "README.md", "src/*.cpp", "src/*.h", "Makefile"],
+      files: ["lib", "LICENSE", "mix.exs", "README.md", "src/*.cpp", "src/*.h", "src/linux/i2c-dev.h", "Makefile"],
       maintainers: ["Luca Ongaro"],
       licenses: ["Apache-2.0"],
       links: %{}
