@@ -4,6 +4,9 @@
 
 An Elixir library to interface with the MLX90640 Far Infrared Thermal Sensor Array.
 
+An example of a project using this library is [Nerves Thermal
+Camera](https://github.com/lucaong/nerves_thermal_camera).
+
 ## Installation
 
 The package can be installed by adding `elixir_mlx90640` to your list of
