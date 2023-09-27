@@ -1,6 +1,6 @@
 # This file is responsible for configuring your application
 # and its dependencies with the aid of the Mix.Config module.
-use Mix.Config
+import Config
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
@@ -28,4 +28,4 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 
-if File.exists?("config/#{Mix.env()}.exs"), do: import_config "#{Mix.env()}.exs"
+if File.exists?("config/#{config_env()}.exs"), do: import_config "#{config_env()}.exs"

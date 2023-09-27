@@ -3,7 +3,7 @@ defmodule Mlx90640 do
   `elixir_mlx90640` provides a high level abstraction to interface with the
   MLX90640 Far Infrared Thermal Sensor Array on Linux platforms.
   """
-  use Bitwise
+  import Bitwise
   use GenServer
 
   defmodule State do
