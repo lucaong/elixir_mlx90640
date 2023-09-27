@@ -15,7 +15,7 @@ dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:elixir_mlx90640, "~> 0.1.9"}
+    {:elixir_mlx90640, "~> 0.1.10"}
   ]
 end
 ```
