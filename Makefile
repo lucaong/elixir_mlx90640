@@ -21,7 +21,7 @@ ifeq ($(CROSSCOMPILE),)
     endif
 endif
 
-DEFAULT_TARGETS ?= $(PREFIX) $(PREFIX)/mlx90640
+DEFAULT_TARGETS ?= $(PREFIX) $(BUILD) $(PREFIX)/mlx90640
 
 CXX ?= $(CROSSCOMPILE)-g++
 AR ?= $(CROSSCOMPILE)-ar
@@ -32,31 +32,37 @@ else
 	RANLIB = $(CROSSCOMPILE)-ranlib
 endif
 
-.PHONY: all clean
+.PHONY: calling_from_make all clean
 
 all: $(DEFAULT_TARGETS)
 
 $(PREFIX)/mlx90640 : CXXFLAGS+=-I. -std=c++11
 
-$(PREFIX)/mlx90640: src/main.o src/libMLX90640_API.a
+$(PREFIX)/mlx90640: $(BUILD)/main.o $(BUILD)/libMLX90640_API.a
 	$(CXX) $^ -L./src -o $@
 
-src/libMLX90640_API.so: src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o
+$(BUILD)/libMLX90640_API.so: $(BUILD)/MLX90640_API.o $(BUILD)/MLX90640_LINUX_I2C_Driver.o
 	$(CXX) -fPIC -shared $^ -o $@
 
-src/libMLX90640_API.a: src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o
+$(BUILD)/libMLX90640_API.a: $(BUILD)/MLX90640_API.o $(BUILD)/MLX90640_LINUX_I2C_Driver.o
 	$(AR) rcs $@ $^
 	$(RANLIB) $@
 
-src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o : CXXFLAGS+=-fPIC -I. -shared
+$(BUILD)/MLX90640_API.o $(BUILD)/MLX90640_LINUX_I2C_Driver.o : CXXFLAGS+=-fPIC -I. -shared
 
-src/main.o : CXXFLAGS+=-std=c++11
+$(BUILD)/main.o : CXXFLAGS+=-std=c++11
 
-$(PREFIX):
+$(BUILD)/%.o : src/%.cpp
+	$(CXX) -c $(CXXFLAGS) -o $@ $<
+
+$(PREFIX) $(BUILD):
 	mkdir -p $@
+
+calling_from_make:
+	mix compile
 
 clean:
 	rm -f $(PREFIX)/mlx90640
-	rm -f src/*.o
-	rm -f src/*.so
-	rm -f src/*.a
+	rm -f $(BUILD)/*.o
+	rm -f $(BUILD)/*.so
+	rm -f $(BUILD)/*.a
