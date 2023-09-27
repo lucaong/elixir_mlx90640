@@ -3,6 +3,8 @@
 # CXX           C++ compiler
 # CROSSCOMPILE	crosscompiler prefix, if any
 #
+PREFIX = $(MIX_APP_PATH)/priv
+BUILD  = $(MIX_APP_PATH)/obj
 
 # Check that we're on a supported build platform
 ifeq ($(CROSSCOMPILE),)
@@ -14,11 +16,11 @@ ifeq ($(CROSSCOMPILE),)
         $(warning this should be done automatically.)
         $(warning .)
         $(warning Skipping C compilation unless targets explicitly passed to make.)
-				DEFAULT_TARGETS = priv
+				DEFAULT_TARGETS = $(PREFIX)
     endif
 endif
 
-DEFAULT_TARGETS ?= priv priv/mlx90640
+DEFAULT_TARGETS ?= $(PREFIX) $(PREFIX)/mlx90640
 
 CXX ?= $(CROSSCOMPILE)-g++
 AR ?= $(CROSSCOMPILE)-ar
@@ -33,9 +35,9 @@ endif
 
 all: $(DEFAULT_TARGETS)
 
-priv/mlx90640 : CXXFLAGS+=-I. -std=c++11
+$(PREFIX)/mlx90640 : CXXFLAGS+=-I. -std=c++11
 
-priv/mlx90640: src/main.o src/libMLX90640_API.a
+$(PREFIX)/mlx90640: src/main.o src/libMLX90640_API.a
 	$(CXX) $^ -L./src -o $@
 
 src/libMLX90640_API.so: src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o
@@ -49,11 +51,11 @@ src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o : CXXFLAGS+=-fPIC -I. -shared
 
 src/main.o : CXXFLAGS+=-std=c++11
 
-priv:
-	mkdir -p priv
+$(PREFIX):
+	mkdir -p $(PREFIX)
 
 clean:
-	rm -f priv/mlx90640
+	rm -f $(PREFIX)/mlx90640
 	rm -f src/*.o
 	rm -f src/*.so
 	rm -f src/*.a
