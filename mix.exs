@@ -34,7 +34,7 @@ defmodule Mlx90640.MixProject do
   defp deps do
     [
       {:elixir_make, "~> 0.4", runtime: false},
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
     ]
   end
 
