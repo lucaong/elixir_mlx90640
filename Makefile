@@ -3,6 +3,7 @@
 # CXX           C++ compiler
 # CROSSCOMPILE	crosscompiler prefix, if any
 #
+MIX_APP_PATH ?= .
 PREFIX = $(MIX_APP_PATH)/priv
 BUILD  = $(MIX_APP_PATH)/obj
 
@@ -52,7 +53,7 @@ src/MLX90640_API.o src/MLX90640_LINUX_I2C_Driver.o : CXXFLAGS+=-fPIC -I. -shared
 src/main.o : CXXFLAGS+=-std=c++11
 
 $(PREFIX):
-	mkdir -p $(PREFIX)
+	mkdir -p $@
 
 clean:
 	rm -f $(PREFIX)/mlx90640
